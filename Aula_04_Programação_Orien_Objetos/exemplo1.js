@@ -1,3 +1,4 @@
+// clase é a estrutura enquanto o objeto é a estruração
 // cria uma classe chamada casa
 class Casa{ 
     // cria o construtor que serve para passar parametros para clase
