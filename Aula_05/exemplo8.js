@@ -1,7 +1,7 @@
 ///Exemplo 8 FILTER(filter)
 
 const numeros=[1,2,3,4,5]
-const pares = nomes.filter(num => num %2 === 0);
+const pares = numeros.filter(num => num %2 === 0);
     console.log(pares)
 
 
