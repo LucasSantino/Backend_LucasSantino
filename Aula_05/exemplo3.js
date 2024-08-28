@@ -1,3 +1,5 @@
+/// Exemplo3 Array Unshift e Shift
+
 notas=[10,9,8,5,6] // cria um array de notas
 console.log(notas) // exeibe o array de notas
 
