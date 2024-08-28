@@ -1,3 +1,5 @@
+//EXPLO 2 POP(pop) e PUSH(push)
+
 notas =[5,10,7.5];
 console.log(notas);
 notas.pop(); /// pop REMOVE um elemento do array
