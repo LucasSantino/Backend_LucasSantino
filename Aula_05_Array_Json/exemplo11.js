@@ -1,4 +1,4 @@
-
+//Exemplo11 Objetos
 // Criando um objeto chamado PESSOA
 let pessoa={
     nome: 'Daniel',
