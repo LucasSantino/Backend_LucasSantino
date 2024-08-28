@@ -12,3 +12,4 @@ pessoa.time = "Corinthians"
 
 console.log(pessoa)
 console.log(pessoa.saudacao)
+console.log(pessoa.idade) // acessa uma informação especifica do obejeto pessoa
