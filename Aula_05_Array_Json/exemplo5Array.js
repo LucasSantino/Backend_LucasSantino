@@ -10,3 +10,4 @@ console.log(nomes2)
 
 const tamanho = nomes.lenght // LENGHT retorna o tamanho da lista
 console.log(tamanho)
+
