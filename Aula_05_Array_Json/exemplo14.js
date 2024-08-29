@@ -1,4 +1,4 @@
-//Exemplo
+//Exemplo14 Objeto tipo BOLEANO
 
 let usuario={
     nome: 'Daniel',
