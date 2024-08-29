@@ -87,8 +87,8 @@ class Moto extends Automovel {
 // Definição da classe Caminhao (herda de Automovel)
 class Caminhao extends Automovel {
     constructor(cor, modelo, tipoCombustivel, quantidadeRodas, capacidadeCarga) {
-        super(cor, modelo, tipoCombustivel, quantidadeRodas);  // Chama o construtor da classe mãe
-        this.capacidadeCarga = capacidadeCarga;  // Atributo específico de Caminhao
+        super(cor, modelo, tipoCombustivel, quantidadeRodas);  
+        this.capacidadeCarga = capacidadeCarga; 
     }
 
     // Método específico de Caminhao
@@ -110,7 +110,7 @@ meuCarro.exibirTipoCarroceria();
 const minhaMoto = new Moto('Preta', 'CB500', 'Gasolina', 2, 'Esportiva');
 minhaMoto.exibirInformacoes();
 minhaMoto.ligar();
-minhaMoto.abrirVidro();  // A classe Moto pode não ter vidros, isso pode ser um exemplo para ver como funciona
+minhaMoto.abrirVidro();  
 minhaMoto.descerVidro();
 minhaMoto.desligar();
 minhaMoto.exibirTipoMoto();
@@ -119,7 +119,7 @@ minhaMoto.exibirTipoMoto();
 const meuCaminhao = new Caminhao('Azul', 'Scania', 'Diesel', 6, 20);
 meuCaminhao.exibirInformacoes();
 meuCaminhao.ligar();
-meuCaminhao.abrirVidro();  // A classe Caminhao pode não ter vidros, isso pode ser um exemplo para ver como funciona
+meuCaminhao.abrirVidro();  
 meuCaminhao.descerVidro();
 meuCaminhao.desligar();
 meuCaminhao.exibirCapacidadeCarga();

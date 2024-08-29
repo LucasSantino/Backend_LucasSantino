@@ -5,7 +5,7 @@ class Carro {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
-        this.motor_ligado = false;  // Inicialmente, o motor está desligado
+        this.motor_ligado = false;  
     }
 
     // ligar o motor

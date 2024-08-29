@@ -46,7 +46,7 @@ class Fritadeira extends Produtos {
         super(nome, quantidade, preco, tipoComunicacao, consumoEnergia);
     }
 
-    // Métodos específicos para fritadeira podem ser adicionados aqui
+    
 }
 
 // Definição da classe Televisao (herda de Produtos)
@@ -55,7 +55,7 @@ class Televisao extends Produtos {
         super(nome, quantidade, preco, tipoComunicacao, consumoEnergia);
     }
 
-    // Métodos específicos para televisão podem ser adicionados aqui
+    
 }
 
 // Definição da classe ArCondicionado (herda de Produtos)

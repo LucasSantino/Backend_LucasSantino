@@ -51,7 +51,7 @@ class Maquina {
 // Definição da classe Furadeira (herda de Maquina)
 class Furadeira extends Maquina {
     constructor(nome, rotacoesPorMinuto, consumoEnergia) {
-        super(nome, 1, rotacoesPorMinuto, consumoEnergia);  // Presume-se que a furadeira tem 1 eixo
+        super(nome, 1, rotacoesPorMinuto, consumoEnergia); 
     }
 
     // Método específico para furadeira (pode adicionar mais métodos se necessário)
