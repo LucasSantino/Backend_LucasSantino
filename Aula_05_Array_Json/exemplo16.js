@@ -1,13 +1,13 @@
 /// Exemplo16 Lista de objetos
 
-const dadoP ={ //objeto
+const dadoP ={ //objeto principal
     nome: 'Daniel',
     idade: 29,
-    endereco:[{
+    endereco:[{                 /// objeto 1
         rua: 'Av Brasilia',    /// elemento 1 [] refeente a posição 1
         numero: 77,
     },
-    {
+    {                            /// objeto2
         rua: ' Cicero Canuto',  /// elemento 2 [] referenrte a posição 2
         numero: 280
     }
