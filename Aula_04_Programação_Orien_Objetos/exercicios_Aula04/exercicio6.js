@@ -1,3 +1,4 @@
+// Exercicio 6
 // Definição da classe Produtos (classe mãe)
 class Produtos {
     constructor(nome, quantidade, preco, tipoComunicacao, consumoEnergia) {

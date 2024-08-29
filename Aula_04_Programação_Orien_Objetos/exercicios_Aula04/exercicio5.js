@@ -1,3 +1,4 @@
+//Exercicio 5
 // Definição da classe Maquina (classe mãe)
 class Maquina {
     constructor(nome, quantidadeEixos, rotacoesPorMinuto, consumoEnergia) {
