@@ -9,9 +9,19 @@ app.get('/', (req, res)=>{
     res.send('Hello backend teste');
 });
 
+app.get('/usuario', (req, res)=>{
+    res.send(' usuario adimin');
+});
+
+
 // App.post é para fazer um post na api com o express
 app.post('/', (req, res)=>{
     res.send('Bckend teste');
+});
+
+// teste com requisição post
+app.post('/', (req, resp)=>{
+    res.send('Teste post');
 });
 
 app.listen(port,()=>{
