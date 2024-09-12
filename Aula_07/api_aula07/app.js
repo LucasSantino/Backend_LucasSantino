@@ -1,8 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const bookRoutes = require('./routes/bookRoutes');
+const bodyParser = require('body-parser'); 
+const bookRoutes = require('./routes/bookRoutes'); 
 
-const app = express();
+const app = express(); // define o servidor
 app.use(bodyParser.json());
 app.use('/api', bookRoutes);
 
