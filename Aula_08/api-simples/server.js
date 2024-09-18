@@ -1,5 +1,5 @@
 // criando a variavel express
-const express = require('express')
+const express = require('express')  /// é um pacote do note que serve para criar um servidor
 
 // cria uma instancia do express
 const app = express();
@@ -16,7 +16,17 @@ app.get('/', (req, res)=>{
     res.send('Api funcionando');
 });
 
-// inicia o servidor e a porta
+
+app.post('/data', (req,res)=>{
+    const {nome,idade} = req.body
+    res.send(`Nome ${nome} idade ${idade}`);
+
+});
+
+
+
+// iniciando o servidor e a porta
 app.listen(porta,()=>{
-    console.log('Api executando na porta ${porta} ')
-} );
+    console.log(`Api executando na porta ${porta} `)
+});
+
