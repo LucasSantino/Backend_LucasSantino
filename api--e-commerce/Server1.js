@@ -36,7 +36,7 @@ app.get('/clientes', (req, res) => {
     res.json(clientes); // Retorna a lista de clientes
 });
 
-// Iniciando o servidor
+// Iniciando o servidor da api
 app.listen(porta, () => {
     console.log(`API - Senai Market v 1.0 executando na porta ${porta}`);
 });
