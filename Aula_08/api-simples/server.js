@@ -6,6 +6,9 @@ const app = express();
 // define a porta que a api irá rodar
 const porta= 3000
 
+// Lista dados para armazenar todos os dados cadastrados
+const dados=[];
+
 // Midware para prcessar a resposta com formato json
 app.use(express.json())
 
@@ -18,11 +21,22 @@ app.get('/', (req, res)=>{
 
 
 app.post('/data', (req,res)=>{
+    // parse para envio dos dados
     const {nome,idade} = req.body
     res.send(`Nome ${nome} idade ${idade}`);
+    dados.push({nome,idade}) // lista de dados push{adiciona elementos}
 
 });
 
+
+// Método data para o end point data
+app.get('/data', (req, res)=>{
+    // parse para leitura dos dados
+    const {nome,idade} = req.body
+    //res.send(`Nome ${nome} idade ${idade}`);
+    res.json(dados) // armazena a resposta
+    
+});
 
 
 // iniciando o servidor e a porta
