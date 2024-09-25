@@ -14,3 +14,6 @@ year:{
 
 
 });
+
+// exportando o modelo para salvar os livros
+modeule.exports = mongoose.model('Book', BookSchema)
