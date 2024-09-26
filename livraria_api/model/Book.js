@@ -1,19 +1,18 @@
-const mongoose = require('mongoose') // Variavel mongoose que irá armazenar a conexão futura com o mongo
+const mongoose = require('mongoose') // Variavel mongoose que irá armazenar
+// a conexão futura com o mongo
 
 // Define a estrutura para salvar o livro no banco de dados
 const BookSchema = new mongoose.Schema({
-// titulo, tipo string, required indica que o parametero é obrigatório
+// titulo, tipo string, required indica que o parâmetro é obrigatório
 title: {
-    type: String, required: True},
+    type: String, required: true},
 author:{
-    type: String, required: True
+    type: String, required: true
 },
-year:{ 
+year:{
     type:Number
-}
-
-
+}   
 });
-
 // exportando o modelo para salvar os livros
-modeule.exports = mongoose.model('Book', BookSchema)
+
+module.exports = mongoose.model('Book',BookSchema)
