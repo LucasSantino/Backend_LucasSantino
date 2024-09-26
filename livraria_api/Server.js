@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Conexão com o mongo db
 
-mongoose.connect('mongodb+srv://SantinoLucas:relampago@library.fetwz.mongodb.net/'
+mongoose.connect('mongodb+srv://SantinoLucas:relampago@library.fetwz.mongodb.net/library'
    
     ,{
     useNewUrlParser:true,useUnifiedTopology:true
@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://SantinoLucas:relampago@library.fetwz.mongodb.net
 
 // Importação das rotas
 const bookRoutes = require('./Routes/books');
-app.use('api/books',bookRoutes); // irá retornar a rota dos livros
+app.use('/api/books',bookRoutes); // irá retornar a rota dos livros
 // Define a porta do servidor
 app.listen(3000,()=>{
     console.log('Servidor executando na porta 3000');
