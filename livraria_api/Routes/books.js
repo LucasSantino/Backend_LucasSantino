@@ -1,7 +1,7 @@
 
 // Cria as rotas
 const express = require('express') // importa o express para criar o servidor
-const Book = require('../model/Book') // importa o modelo dos livros Book.js
+const Book = require('../models/Book') // importa o modelo dos livros Book.js
 const router = express.Router(); // cria o elemento para rotear com base nas requisições
 
 // Cria rota do post
@@ -25,7 +25,7 @@ try{
 // res - resposta
 router.get('/',async (req,res)=>{
 try{
-    const books = await Books.find(); // busca todos os livros com o metódo find
+    const books = await Book.find(); // busca todos os livros com o metódo find
     res.status(200).json(books) // retorna a lista de livros
 }catch(error){
     res.status(500).json({message: 'Erro ao buscar os livros ',error}) // retorna o erro se houver
