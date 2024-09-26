@@ -1,7 +1,7 @@
 
 // Cria as rotas
 const express = require('express') // importa o express para criar o servidor
-const Book = require('../models/Book') // importa o modelo dos livros Book.js
+const Book = require('../model/Book') // importa o modelo dos livros Book.js
 const router = express.Router(); // cria o elemento para rotear com base nas requisições
 
 // Cria rota do post
