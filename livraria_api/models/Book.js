@@ -10,8 +10,7 @@ author:{
     type: String, required: true
 },
 year:{
-    type:Number
-}   
+    type:Number}   
 });
 // exportando o modelo para salvar os livros
 
