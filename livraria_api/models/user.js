@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+//// cria a variavel mongoose para realizar
+
 
 // Define o esquema de usuario
 
