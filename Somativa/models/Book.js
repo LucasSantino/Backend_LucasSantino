@@ -5,7 +5,7 @@ const BookSchema = new mongoose.Schema({
     title:{type: String, required: true},
     author: {type:String, required: true},
     year:{type:Number},
-    ISBN:{type:Number},
+    ISBN: { type: String, required: true, unique: true }, // ISBN único
 
 
 });

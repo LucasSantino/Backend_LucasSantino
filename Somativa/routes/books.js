@@ -37,15 +37,20 @@ res.status(200).json(updatedBook);
 })
 
 // Rota DELETE (excluir)
-router.delete('/:id',async(req,res)=>{
-    try{
-        await Book.findByIdAndDelete(req.params.id);
-        res.status(200).json({message:'Livro deletado com sucesso'});
-    }catch(error){
-        res.status(500).json({message:'Erro ao tentar deletar o livro',error});
+// Rota DELETE (Excluir) pelo ISBN
+router.delete('/isbn/:isbn', async (req, res) => {
+    const { isbn } = req.params; // extrai o ISBN da URL
+    try {
+        const deletedBook = await Book.findOneAndDelete({ ISBN: isbn }); // busca e deleta o livro pelo ISBN
+        if (!deletedBook) {
+            return res.status(404).json({ message: 'Livro não encontrado com esse ISBN' }); // retorna erro se não encontrar o livro
+        }
+        res.status(200).json({ message: 'Livro deletado com sucesso', book: deletedBook });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao tentar deletar o livro', error });
     }
+});
 
-})
 
 //Exportação do roteador para ser usado no server.js
 module.exports = router;
