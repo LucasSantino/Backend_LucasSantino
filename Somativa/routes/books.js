@@ -25,7 +25,7 @@ router.get('/',async (req,res)=>{
     }
 });
 
-// Rota PUT (Atualizar)
+// Rota PUT (Atualizar) atraves de titulo, autor, ano,
 router.put('/:id', async (req, res) => {
     const { title, author, year, ISBN } = req.body; // extrai os dados do corpo da requisição
 
