@@ -25,6 +25,41 @@ router.get('/',async (req,res)=>{
     }
 });
 
+// Rota GET(Leitura) - utilizando filtros
+// Rota para buscar livros por título (GET)
+router.get('/title', async (req, res) => {
+    const { title } = req.query; // Obtém o título a partir da query string
+
+
+    if (!title) {
+        // Caso não tenha sido fornecido o título na query, retorna erro
+        return res.status(400).json({ message: 'O parâmetro "titulo" é necessário para a busca.' });
+    }
+
+
+    try {
+        // Busca livros que contenham o título parcial, com correspondência insensível a maiúsculas/minúsculas
+        const books = await Book.find({
+            title: { $regex: title, $options: 'i' } // 'i' para insensibilidade a maiúsculas/minúsculas
+        });
+
+
+        // Caso nenhum livro seja encontrado
+        if (books.length === 0) {
+            return res.status(404).json({ message: 'Nenhum livro encontrado com esse título.' });
+        }
+
+
+        // Retorna os livros encontrados
+        res.status(200).json(books);
+    } catch (error) {
+        // Retorna erro caso haja algum problema na consulta
+        res.status(500).json({ message: 'Erro ao buscar os livros', error });
+    }
+});
+
+
+
 // Rota PUT (Atualizar) atraves de titulo, autor, ano,
 router.put('/:id', async (req, res) => {
     const { title, author, year, ISBN } = req.body; // extrai os dados do corpo da requisição
