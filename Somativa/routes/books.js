@@ -26,15 +26,38 @@ router.get('/',async (req,res)=>{
 });
 
 // Rota PUT (Atualizar)
-router.put('/:id',async(req,res)=>{
-    const {title,author,year} = req.body; // extrai o conteudo da requisição
-try{
-const updatedBook = await Book.findByIdAndUpdate(req.params.id,{title,author, year, ISBN},{new: true});
-res.status(200).json(updatedBook);
-}catch(error){
-    res.status(500).json({message:'Erro ao atualizar livro',error}); 
-}
-})
+router.put('/:id', async (req, res) => {
+    const { title, author, year, ISBN } = req.body; // extrai os dados do corpo da requisição
+
+    const updateData = {};  // Objeto que vai armazenar os dados que queremos atualizar
+
+    // Preenche o objeto de atualização apenas com os campos que foram passados na requisição
+    if (title) updateData.title = title;
+    if (author) updateData.author = author;
+    if (year) updateData.year = year;
+    if (ISBN) updateData.ISBN = ISBN;
+
+    try {
+        // Utilizando o findByIdAndUpdate para atualizar apenas os campos fornecidos
+        const updatedBook = await Book.findByIdAndUpdate(
+            req.params.id,       // O ID do livro a ser atualizado
+            updateData,          // Os dados a serem atualizados (somente os campos passados na requisição)
+            { new: true }        // Retorna o livro atualizado (não o antigo)
+        );
+
+        if (!updatedBook) {
+            // Caso o livro não seja encontrado
+            return res.status(404).json({ message: 'Livro não encontrado com esse ID' });
+        }
+
+        // Se o livro for encontrado e atualizado com sucesso
+        res.status(200).json(updatedBook);
+    } catch (error) {
+        // Se houver erro ao tentar atualizar
+        res.status(500).json({ message: 'Erro ao atualizar livro', error });
+    }
+});
+
 
 // Rota DELETE (excluir)
 // Rota DELETE (Excluir) pelo ISBN
