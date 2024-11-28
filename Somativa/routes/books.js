@@ -1,41 +1,54 @@
 const express = require('express');
-const Book = require('../models/Book');  // importação do modelo Book
-const router = express.Router();  //Criamos o roteador
+const mongoose = require('mongoose');
+const Book = require('../models/Book'); // Importação do modelo Book
+const multer = require('multer');
+const router = express.Router(); // Criamos o roteador
+
+// Configuração do Multer para upload de imagens
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
 
 // Rota POST (Criar)
-router.post('/', async (req, res) => {
-    const { title, author, year, ISBN} = req.body; // extração dos dados de requisição
-    try{
-        const newBook = new Book({ title, author, year, ISBN}); // criação e salvamento dos dados do livros
+router.post('/', upload.single('image'), async (req, res) => {
+    const { title, author, year, ISBN } = req.body; // Extração dos dados de requisição
+    try {
+        // Caminho da imagem enviada pelo Multer
+        const image = req.file.path;
+
+        const newBook = new Book({ title, author, year, ISBN, image }); // Criação e salvamento dos dados do livro
         await newBook.save();
-        res.status(201).json(newBook); // retorno do livro 
+        res.status(201).json({ message: 'Livro cadastrado com sucesso', book: newBook }); // Retorno do livro
     } catch (error) {
-        res.status(500).json({message: 'Erro ao criar o livro', error}); // retorno se houver erro
+        res.status(500).json({ message: 'Erro ao criar o livro', error }); // Retorno se houver erro
     }
 });
 
 // Rota GET (Leitura)
-router.get('/',async (req,res)=>{
-    try{
-        const books = await Book.find(); // busca todos os livros com o metódo find
-        res.status(200).json(books) // retorna a lista de livros
-    }catch(error){
-        res.status(500).json({message: 'Erro ao buscar os livros ',error}) // retorna o erro se houver
-    
+router.get('/', async (req, res) => {
+    try {
+        const books = await Book.find(); // Busca todos os livros com o método find
+        res.status(200).json(books); // Retorna a lista de livros
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar os livros', error }); // Retorna o erro se houver
     }
 });
 
-// Rota GET(Leitura) - utilizando filtros
-// Rota para buscar livros por título (GET)
+// Rota GET (Leitura) - Utilizando filtros
 router.get('/title', async (req, res) => {
     const { title } = req.query; // Obtém o título a partir da query string
 
-
     if (!title) {
         // Caso não tenha sido fornecido o título na query, retorna erro
-        return res.status(400).json({ message: 'O parâmetro "titulo" é necessário para a busca.' });
+        return res.status(400).json({ message: 'O parâmetro "title" é necessário para a busca.' });
     }
-
 
     try {
         // Busca livros que contenham o título parcial, com correspondência insensível a maiúsculas/minúsculas
@@ -43,12 +56,10 @@ router.get('/title', async (req, res) => {
             title: { $regex: title, $options: 'i' } // 'i' para insensibilidade a maiúsculas/minúsculas
         });
 
-
         // Caso nenhum livro seja encontrado
         if (books.length === 0) {
             return res.status(404).json({ message: 'Nenhum livro encontrado com esse título.' });
         }
-
 
         // Retorna os livros encontrados
         res.status(200).json(books);
@@ -58,13 +69,11 @@ router.get('/title', async (req, res) => {
     }
 });
 
+// Rota PUT (Atualizar)
+router.put('/:id', upload.single('image'), async (req, res) => {
+    const { title, author, year, ISBN } = req.body; // Extração dos dados do corpo da requisição
 
-
-// Rota PUT (Atualizar) atraves de titulo, autor, ano,
-router.put('/:id', async (req, res) => {
-    const { title, author, year, ISBN } = req.body; // extrai os dados do corpo da requisição
-
-    const updateData = {};  // Objeto que vai armazenar os dados que queremos atualizar
+    const updateData = {}; // Objeto que vai armazenar os dados que queremos atualizar
 
     // Preenche o objeto de atualização apenas com os campos que foram passados na requisição
     if (title) updateData.title = title;
@@ -72,12 +81,17 @@ router.put('/:id', async (req, res) => {
     if (year) updateData.year = year;
     if (ISBN) updateData.ISBN = ISBN;
 
+    // Atualiza a imagem, se enviada
+    if (req.file) {
+        updateData.image = req.file.path;
+    }
+
     try {
         // Utilizando o findByIdAndUpdate para atualizar apenas os campos fornecidos
         const updatedBook = await Book.findByIdAndUpdate(
-            req.params.id,       // O ID do livro a ser atualizado
-            updateData,          // Os dados a serem atualizados (somente os campos passados na requisição)
-            { new: true }        // Retorna o livro atualizado (não o antigo)
+            req.params.id, // O ID do livro a ser atualizado
+            updateData, // Os dados a serem atualizados
+            { new: true } // Retorna o livro atualizado
         );
 
         if (!updatedBook) {
@@ -93,15 +107,13 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-
-// Rota DELETE (excluir)
-// Rota DELETE (Excluir) pelo ISBN
+// Rota DELETE (Excluir)
 router.delete('/isbn/:isbn', async (req, res) => {
-    const { isbn } = req.params; // extrai o ISBN da URL
+    const { isbn } = req.params; // Extrai o ISBN da URL
     try {
-        const deletedBook = await Book.findOneAndDelete({ ISBN: isbn }); // busca e deleta o livro pelo ISBN
+        const deletedBook = await Book.findOneAndDelete({ ISBN: isbn }); // Busca e deleta o livro pelo ISBN
         if (!deletedBook) {
-            return res.status(404).json({ message: 'Livro não encontrado com esse ISBN' }); // retorna erro se não encontrar o livro
+            return res.status(404).json({ message: 'Livro não encontrado com esse ISBN' }); // Retorna erro se não encontrar o livro
         }
         res.status(200).json({ message: 'Livro deletado com sucesso', book: deletedBook });
     } catch (error) {
@@ -109,6 +121,4 @@ router.delete('/isbn/:isbn', async (req, res) => {
     }
 });
 
-
-//Exportação do roteador para ser usado no server.js
 module.exports = router;
