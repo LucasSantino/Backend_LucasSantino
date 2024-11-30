@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Rota GET (Leitura) - Utilizando filtros
+// Rota GET (Leitura) - Utilizando filtros: Busca por pelo titulo (title)
 router.get('/title', async (req, res) => {
     const { title } = req.query; // Obtém o título a partir da query string
 

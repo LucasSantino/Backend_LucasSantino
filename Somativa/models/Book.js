@@ -6,7 +6,7 @@ const BookSchema = new mongoose.Schema({
     author: { type: String, required: true },
     year: { type: Number },
     ISBN: { type: String, required: true, unique: true },
-    image: { type: String, required: true } // Corrigi o campo de imagem
+    image: { type: String, required: true } 
 });
 
 // Exportando o modelo
